@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Aluno - Criar Conta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="assets/ufu-logo.svg" type=" image/x-icon">
+</head>
+
+<body class="app-body">
+    <nav class="app-nav">
+        <div class="page-container">
+            <div class="nav-content">
+                <a class="brand brand-link" href="index.html" style="margin: 0 auto;">
+                    <img src="assets/ufu-logo.svg" alt="Logo Universidade" class="logo">
+                    <div class="brand-text">
+                        <span class="portal-title">Portal do Aluno</span>
+                        <span class="portal-subtitle">Extensão &amp; Cultura</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="login-page">
+        <div class="login-container">
+            <div class="login-logo-wrap">
+                <div class="login-logo">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M13,2.05V5.08C16.39,5.57 19,8.47 19,12C19,12.9 18.82,13.75 18.5,14.54L21.12,16.07C21.68,14.83 22,13.45 22,12C22,6.82 18.05,2.55 13,2.05M12,19C8.13,19 5,15.87 5,12C5,8.47 7.61,5.57 11,5.08V2.05C5.94,2.55 2,6.81 2,12C2,17.52 6.47,22 12,22C14.3,22 16.4,21.23 18.07,19.93L15.54,18.35C14.5,18.75 13.28,19 12,19M12,6A6,6 0 0,0 6,12C6,14.97 8.16,17.43 11,17.93V14.91C9.27,14.43 8,12.86 8,11A4,4 0 0,1 12,7A4,4 0 0,1 16,11C16,12.86 14.73,14.43 13,14.91V17.93C15.84,17.43 18,14.97 18,12A6,6 0 0,0 12,6Z" />
+                    </svg>
+                </div>
+            </div>
+
+            <h1 class="login-title">Criar conta no Portal</h1>
+
+            <form class="login-form" id="signupForm">
+                <div class="form-group">
+                    <label for="signup-name">Seu nome completo</label>
+                    <div class="input-wrapper">
+                        <input id="signup-name" type="text" class="login-input" placeholder="Ex: Ana Beatriz Souza">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-phone">Seu telefone</label>
+                    <div class="input-wrapper">
+                        <input id="signup-phone" type="tel" class="login-input" placeholder="(34) 9 9999-9999">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-email">E-mail UFU</label>
+                    <div class="input-wrapper">
+                        <input id="signup-email" type="email" class="login-input" placeholder="nome.sobrenome@ufu.br">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-pass">Crie sua senha</label>
+                    <div class="input-wrapper">
+                        <input id="signup-pass" type="password" class="login-input with-toggle" placeholder="Senha com letras e números" data-toggle="password">
+                        <button type="button" class="eye-toggle input-eye" data-toggle-target="signup-pass" aria-label="Mostrar ou ocultar senha">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-pass-confirm">Confirme sua senha</label>
+                    <div class="input-wrapper">
+                        <input id="signup-pass-confirm" type="password" class="login-input with-toggle" placeholder="Repita a senha" data-toggle="password">
+                        <button type="button" class="eye-toggle input-eye" data-toggle-target="signup-pass-confirm" aria-label="Mostrar ou ocultar senha">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+
+                <button type="submit" class="btn-submit">Criar conta</button>
+            </form>
+
+            <div class="new-account">
+                Já tem acesso?<a href="login.html"> Entrar</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="users.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

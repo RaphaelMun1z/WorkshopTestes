@@ -1,143 +1,178 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Extensão - Catálogo de Cursos</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        uni: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="shortcut icon" href="assets/ufu-logo.svg" type=" image/x-icon">
 </head>
-<body class="text-slate-800 font-sans antialiased flex flex-col min-h-screen">
-    <nav class="bg-uni-900 border-b border-uni-800 sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <img src="https://placehold.co/50x50/0c4a6e/white?text=LOGO" alt="Logo Universidade" class="h-10 w-auto object-contain mr-2">
-                    <div class="ml-3">
-                        <span class="block text-lg font-bold text-white leading-none">Portal do Aluno</span>
-                        <span class="block text-xs text-uni-100 font-light opacity-80">Extensão & Cultura</span>
+
+<body class="app-body">
+    <nav class="app-nav">
+        <div class="page-container">
+            <div class="nav-content">
+                <a class="brand brand-link" href="index.html">
+                    <img src="assets/ufu-logo.svg" alt="Logo Universidade" class="logo">
+                    <div class="brand-text">
+                        <span class="portal-title">Portal do Aluno</span>
+                        <span class="portal-subtitle">Extensão &amp; Cultura</span>
                     </div>
-                </div>
-                
-                <div class="hidden md:flex items-center space-x-4">
-                    <div class="text-right">
-                        <p class="text-sm font-medium text-white">Olá, Estudante</p>
-                        <p class="text-xs text-uni-200">Sistemas de Informação</p>
+                </a>
+
+                <div class="nav-user">
+                    <div class="auth-cta" id="nav-auth-cta">
+                        <a class="cta-btn cta-primary" href="signup.html">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M19 8v6m3-3h-6"></path>
+                            </svg>
+                            Criar Conta Gratuita
+                        </a>
+                        <a class="cta-btn cta-secondary" href="login.html">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h13"></path>
+                                <path d="M12 5l7 7-7 7"></path>
+                            </svg>
+                            Entrar
+                        </a>
                     </div>
-                    <img src="https://placehold.co/100x100/0ea5e9/white?text=User" alt="Foto do Perfil" class="h-10 w-10 rounded-full border border-uni-700 object-cover bg-uni-800">
+                    <div class="user-dropdown hidden" id="nav-user-dropdown">
+                        <button id="user-toggle" class="user-toggle" aria-haspopup="true" aria-expanded="false">
+                            <svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"></path>
+                            </svg>
+                            <span class="user-name">Ygor</span>
+                            <img src="https://placehold.co/100x100/0ea5e9/white?text=User" alt="Foto do Perfil" class="user-avatar">
+                        </button>
+                        <div id="user-menu" class="user-menu hidden" role="menu">
+                            <div class="user-menu-header" id="user-email-text">
+                                <svg class="user-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 10H5a2 2 0 01-2-2V8a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z"></path>
+                                </svg>
+                                <span class="user-email-value">estudante@ufu.br</span>
+                            </div>
+                            <button id="menu-inscricoes" class="user-menu-item" role="menuitem">
+                                <svg class="user-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Minhas inscrições
+                            </button>
+                            <button id="menu-perfil" class="user-menu-item" role="menuitem">
+                                <svg class="user-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="8" r="4"></circle>
+                                    <path d="M5 21v-2a7 7 0 0 1 14 0v2"></path>
+                                </svg>
+                                Editar perfil
+                            </button>
+                            <button id="menu-sair" class="user-menu-item danger" role="menuitem">
+                                <svg class="user-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1"></path>
+                                </svg>
+                                Deslogar
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
-    
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Atividades Complementares</h1>
-            <p class="text-gray-500 mt-2">Gerencie suas inscrições e explore novas oportunidades de aprendizado.</p>
+
+    <main class="page-main">
+        <div class="section-header">
+            <h1 class="section-title">Atividades Complementares</h1>
+            <p class="section-subtitle">Gerencie suas inscrições e explore novas oportunidades de aprendizado.</p>
         </div>
-        
-        <div class="border-b border-gray-200 mb-8">
-            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                <button onclick="switchTab('available')" id="tab-available" class="border-uni-500 text-uni-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center transition-colors">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                    Cursos Disponíveis
-                </button>
-                <button onclick="switchTab('my-courses')" id="tab-my-courses" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center transition-colors">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                    Minhas Inscrições
-                    <span id="enrollment-count" class="ml-2 bg-gray-100 text-gray-600 py-0.5 px-2 rounded-full text-xs hidden">0</span>
-                </button>
-            </nav>
-        </div>
-        
-        <div id="view-available" class="fade-in">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="courses-grid">
+
+        <div class="tabs-row">
+            <div class="tabs">
+                <nav class="tabs-list" aria-label="Tabs">
+                    <button onclick="switchTab('available')" id="tab-available" class="tab-button tab-active">
+                        <svg class="tab-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        Cursos Disponíveis
+                    </button>
+                    <button onclick="switchTab('my-courses')" id="tab-my-courses" class="tab-button tab-inactive">
+                        <svg class="tab-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                        </svg>
+                        Minhas Inscrições
+                        <span id="enrollment-count" class="tab-count hidden">0</span>
+                    </button>
+                </nav>
             </div>
+            <div id="admin-actions" class="admin-actions hidden"></div>
         </div>
-        
+
+        <div id="view-available" class="fade-in">
+            <div class="courses-grid" id="courses-grid"></div>
+        </div>
+
         <div id="view-my-courses" class="hidden fade-in">
-            <div id="enrolled-container" class="space-y-4">
-                <div id="empty-state" class="text-center py-16 border-2 border-dashed border-gray-200 rounded-lg">
-                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div id="enrolled-container" class="enrolled-container">
+                <div id="empty-state" class="empty-state">
+                    <svg class="empty-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <h3 class="mt-2 text-sm font-medium text-gray-900">Nenhuma inscrição encontrada</h3>
-                    <p class="mt-1 text-sm text-gray-500">Comece explorando os cursos disponíveis na outra aba.</p>
-                    <div class="mt-6">
-                        <button onclick="switchTab('available')" class="inline-flex items-center px-4 py-2 border border-uni-600 text-sm font-medium rounded-md text-uni-600 bg-white hover:bg-uni-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-uni-500">
+                    <h3>Nenhuma inscrição encontrada</h3>
+                    <p>Comece explorando os cursos disponíveis na outra aba.</p>
+                    <div class="empty-actions">
+                        <button onclick="switchTab('available')" class="btn btn-outline">
                             Ver Cursos Disponíveis
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </main>
-    
-    <div id="enrollment-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeModal()"></div>
-        <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
-            <div class="relative bg-white rounded-lg text-left overflow-hidden transform transition-all sm:my-8 sm:max-w-lg w-full border border-gray-200 modal-enter">
-                <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+
+    <div id="enrollment-modal" class="modal hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="modal-overlay" aria-hidden="true" onclick="closeModal()"></div>
+        <div class="modal-wrapper">
+            <div class="modal-card modal-enter">
+                <div class="modal-header">
                     <div>
-                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Confirmar Inscrição</h3>
-                        <p id="modal-course-name" class="text-sm text-uni-600 font-semibold mt-0.5">Nome do Curso</p>
+                        <h3 class="modal-title" id="modal-title">Confirmar Inscrição</h3>
+                        <p id="modal-course-name" class="modal-subtitle">Nome do Curso</p>
                     </div>
-                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-500 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <button onclick="closeModal()" class="icon-button" aria-label="Fechar modal">
+                        <svg class="tab-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
-                <form id="enrollment-form" class="px-4 py-5 sm:p-6 space-y-4">
+                <form id="enrollment-form" class="modal-form">
                     <input type="hidden" id="course-id">
-                    <div id="modal-prereq-warning" class="hidden mb-4 p-3 bg-amber-50 border border-amber-200 rounded text-amber-800 text-sm flex items-start">
-                        <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <div id="modal-prereq-warning" class="form-alert hidden">
+                        <svg class="course-meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
                         <span><strong>Atenção:</strong> Certifique-se de ter cumprido os pré-requisitos antes de se inscrever.</span>
                     </div>
-                    <div>
-                        <label for="matricula" class="block text-sm font-medium text-gray-700">Matrícula (R.A.)</label>
-                        <input type="text" id="matricula" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-uni-500 focus:border-uni-500 sm:text-sm" placeholder="00000000" required>
+                    <div class="form-group">
+                        <label for="matricula">Matrícula (R.A.)</label>
+                        <input type="text" id="matricula" class="input-field" placeholder="00000000" required>
                     </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700">E-mail Institucional</label>
-                        <input type="email" id="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-uni-500 focus:border-uni-500 sm:text-sm" placeholder="aluno@univ.edu.br" required>
+                    <div class="form-group">
+                        <label for="email">E-mail Institucional</label>
+                        <input type="email" id="email" class="input-field" placeholder="aluno@univ.edu.br" required>
                     </div>
-                    <div class="bg-blue-50 border border-blue-100 rounded-md p-3 flex items-start">
-                        <input id="terms" type="checkbox" class="h-4 w-4 text-uni-600 focus:ring-uni-500 border-gray-300 rounded mt-0.5" required>
-                        <label for="terms" class="ml-2 block text-xs text-blue-800">
+                    <div class="checkbox-row">
+                        <input id="terms" type="checkbox" required>
+                        <label for="terms">
                             Estou ciente que esta atividade conta <strong>horas complementares</strong> e que devo ter 75% de frequência.
                         </label>
                     </div>
-                    <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-                        <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-uni-600 text-base font-medium text-white hover:bg-uni-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-uni-500 sm:col-start-2 sm:text-sm transition-colors">
+                    <div class="modal-actions">
+                        <button type="submit" class="btn btn-primary">
                             Confirmar
                         </button>
-                        <button type="button" onclick="closeModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-uni-500 sm:mt-0 sm:col-start-1 sm:text-sm transition-colors">
+                        <button type="button" onclick="closeModal()" class="btn btn-ghost">
                             Cancelar
                         </button>
                     </div>
@@ -145,20 +180,165 @@
             </div>
         </div>
     </div>
-    
-    <div id="details-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity backdrop-blur-sm" onclick="closeDetails()"></div>
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg max-w-2xl w-full border border-gray-200 modal-enter p-6 relative">
-                <button onclick="closeDetails()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+
+    <div id="details-modal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-overlay" onclick="closeDetails()"></div>
+        <div class="modal-wrapper">
+            <div class="modal-card details-card modal-enter">
+                <button onclick="closeDetails()" class="icon-button details-close" aria-label="Fechar detalhes">
+                    <svg class="tab-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
                 </button>
-                <div id="details-content">
+                <div id="details-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-modal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-overlay" onclick="closeAdminModal()"></div>
+        <div class="modal-wrapper">
+            <div class="modal-card admin-modal-card modal-enter">
+                <div class="admin-modal-header">
+                    <div>
+                        <h3 class="admin-modal-title">Cadastrar Novo Evento</h3>
+                        <p class="admin-modal-subtitle">Preencha os dados abaixo para publicar um evento no portal.</p>
+                    </div>
+                    <button onclick="closeAdminModal()" class="icon-button admin-close" aria-label="Fechar modal admin">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <form id="admin-form" class="admin-form">
+                    <div class="admin-field">
+                        <label for="admin-title">Título do Evento</label>
+                        <input id="admin-title" type="text" class="admin-input" placeholder="Ex: Introdução à Ciência de Dados" required>
+                    </div>
+
+                    <div class="admin-grid-2">
+                        <div class="admin-field">
+                            <label for="admin-category">Categoria</label>
+                            <select id="admin-category" class="admin-input" required>
+                                <option value="">Selecione</option>
+                                <option>Tecnologia</option>
+                                <option>Saúde</option>
+                                <option>Educação</option>
+                                <option>Artes</option>
+                                <option>Ciências</option>
+                                <option>Gestão</option>
+                                <option>Idiomas</option>
+                            </select>
+                        </div>
+                        <div class="admin-field">
+                            <label for="admin-type">Formato</label>
+                            <select id="admin-type" class="admin-input" required>
+                                <option value="Presencial">Presencial</option>
+                                <option value="Remoto">Online</option>
+                                <option value="Híbrido">Híbrido</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="admin-description">Descrição</label>
+                        <textarea id="admin-description" class="admin-input" rows="4" placeholder="Descreva objetivos e conteúdo do evento..." required></textarea>
+                    </div>
+
+                    <div class="admin-grid-2">
+                        <div class="admin-field">
+                            <label for="admin-date">Data</label>
+                            <input id="admin-date" type="date" class="admin-input" required>
+                        </div>
+                        <div class="admin-field">
+                            <label for="admin-time">Horário</label>
+                            <input id="admin-time" type="time" class="admin-input" required>
+                        </div>
+                    </div>
+
+                    <div class="admin-grid-2">
+                        <div class="admin-field">
+                            <label for="admin-location">Local</label>
+                            <input id="admin-location" type="text" class="admin-input" placeholder="Ex: Lab 03 - Bloco C" required>
+                        </div>
+                        <div class="admin-field">
+                            <label for="admin-hours">Carga Horária</label>
+                            <input id="admin-hours" type="text" class="admin-input" placeholder="Ex: 40h" required>
+                        </div>
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="admin-prereq">Pré-requisitos (opcional)</label>
+                        <textarea id="admin-prereq" class="admin-input" rows="2" placeholder="Separe por vírgula, ex: Lógica, Estatística"></textarea>
+                    </div>
+
+                    <div class="admin-actions-row">
+                        <button type="button" class="btn admin-cancel" onclick="closeAdminModal()">Cancelar</button>
+                        <button type="submit" class="btn admin-submit">Cadastrar Evento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-modal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-overlay" onclick="closeDeleteModal()"></div>
+        <div class="modal-wrapper">
+            <div class="modal-card confirm-card modal-enter">
+                <div class="confirm-header">
+                    <div>
+                        <h3 class="confirm-title">Excluir evento</h3>
+                        <p class="confirm-subtitle">Esta ação removerá o evento do catálogo.</p>
+                    </div>
+                    <button onclick="closeDeleteModal()" class="icon-button admin-close" aria-label="Fechar confirmação">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="confirm-body">
+                    <p class="confirm-text">Tem certeza que deseja excluir o evento <strong id="delete-course-title">este evento</strong>?</p>
+                    <div class="confirm-actions">
+                        <button type="button" class="btn admin-cancel" onclick="closeDeleteModal()">Cancelar</button>
+                        <button type="button" class="btn admin-submit" onclick="confirmDeleteCourse()">Excluir</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <div id="cancel-enrollment-modal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-overlay" onclick="closeCancelModal()"></div>
+        <div class="modal-wrapper">
+            <div class="modal-card confirm-card modal-enter">
+                <div class="confirm-header">
+                    <div>
+                        <h3 class="confirm-title">Cancelar inscrição</h3>
+                        <p class="confirm-subtitle">Você perderá a vaga deste evento.</p>
+                    </div>
+                    <button onclick="closeCancelModal()" class="icon-button admin-close" aria-label="Fechar confirmação">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="confirm-body">
+                    <p class="confirm-text">Deseja realmente cancelar sua inscrição em <strong id="cancel-course-title">este evento</strong>?</p>
+                    <div class="confirm-actions">
+                        <button type="button" class="btn admin-cancel" onclick="closeCancelModal()">Voltar</button>
+                        <button type="button" class="btn admin-submit" onclick="confirmCancelEnrollment()">Confirmar cancelamento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="users.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
