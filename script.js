@@ -10,6 +10,16 @@ const DEPT_OPTIONS = [
   'Sistemas de Informação - FACOM',
   'Diretoria de Extensão e Cultura (DIRC)',
 ];
+const PREREQ_OPTIONS = [
+  'Mínimo 2º período',
+  'Conhecimento em Java',
+  'Algoritmos e Estruturas de Dados',
+  'Banco de Dados básico',
+  'Inglês técnico',
+  'Experiência em pesquisa',
+  'Disponibilidade noturna',
+];
+let adminPrereqSelected = new Set();
 
 function getSeedUsers() {
   if (Array.isArray(window.USERS_SEED)) {
@@ -120,6 +130,7 @@ let coursesData = [];
 let currentCourseId = null;
 let deleteCourseId = null;
 let cancelCourseId = null;
+let editCourseId = null;
 
 function loadCourses() {
   try {
@@ -286,6 +297,43 @@ function mapTypeClass(type) {
   return 'type-presencial';
 }
 
+function renderPrereqChips() {
+  const container = document.getElementById('admin-prereq-chips');
+  if (!container) return;
+  container.innerHTML = '';
+  adminPrereqSelected.forEach((value) => {
+    const chip = document.createElement('span');
+    chip.className = 'admin-chip';
+    chip.textContent = value;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chip-remove';
+    btn.textContent = '×';
+    btn.addEventListener('click', () => {
+      adminPrereqSelected.delete(value);
+      renderPrereqChips();
+    });
+    chip.appendChild(btn);
+    container.appendChild(chip);
+  });
+}
+
+function initPrereqSelect() {
+  const select = document.getElementById('admin-prereq-select');
+  if (!select) return;
+  select.addEventListener('change', () => {
+    const val = select.value;
+    if (!val) return;
+    if (adminPrereqSelected.has(val)) {
+      adminPrereqSelected.delete(val);
+    } else {
+      adminPrereqSelected.add(val);
+    }
+    renderPrereqChips();
+    select.value = '';
+  });
+}
+
 function getCurrentEnrollments() {
   const session = getCurrentUser();
   if (!session) return [];
@@ -384,7 +432,23 @@ function renderCourses() {
               ${course.type || 'Presencial'}
           </span>
         </div>
-        ${isAdmin ? `<button class="card-icon-btn" onclick="openDeleteModal(${course.id})" title="Excluir evento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path></svg></button>` : ''}
+        ${
+          isAdmin
+            ? `<div class="card-actions">
+                 <button class="card-icon-btn card-edit-btn" onclick="openEditModal(${course.id})" title="Editar evento">
+                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                     <path d="M12 20h9"></path>
+                     <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+                   </svg>
+                 </button>
+                 <button class="card-icon-btn" onclick="openDeleteModal(${course.id})" title="Excluir evento">
+                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                     <path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path>
+                   </svg>
+                 </button>
+               </div>`
+            : ''
+        }
       </div>
 
       <h3 class="course-title">${course.title}</h3>
@@ -568,6 +632,45 @@ function openDeleteModal(courseId) {
   if (titleEl && course) titleEl.textContent = course.title;
   const modal = document.getElementById('delete-modal');
   if (modal) modal.classList.remove('hidden');
+}
+
+function openEditModal(courseId) {
+  const session = getCurrentUser();
+  if (!session || session.role !== 'admin') {
+    alert('Apenas administradores podem editar eventos.');
+    return;
+  }
+  const course = coursesData.find((c) => c.id === courseId);
+  const modal = document.getElementById('admin-modal');
+  const form = document.getElementById('admin-form');
+  if (!course || !modal || !form) return;
+  editCourseId = courseId;
+
+  const titleEl = document.querySelector('.admin-modal-title');
+  const subtitleEl = document.querySelector('.admin-modal-subtitle');
+  const submitBtn = document.querySelector('.admin-submit');
+
+  if (titleEl) titleEl.textContent = 'Editar Evento';
+  if (subtitleEl) subtitleEl.textContent = 'Atualize e salve para todos os usuários.';
+  if (submitBtn) submitBtn.textContent = 'Salvar alterações';
+
+  form.querySelector('#admin-title').value = course.title || '';
+  form.querySelector('#admin-category').value = course.category || '';
+  form.querySelector('#admin-type').value = course.type || 'Presencial';
+  form.querySelector('#admin-description').value = course.description || '';
+  form.querySelector('#admin-date').value = course.date || '';
+  form.querySelector('#admin-time').value = course.time || '';
+  form.querySelector('#admin-location').value = course.location || '';
+  form.querySelector('#admin-hours').value = course.hours || '';
+  const audios = document.querySelectorAll('input[name="admin-audience"]');
+  audios.forEach((el) => {
+    el.checked = (course.audience || 'todos') === el.value;
+  });
+
+  adminPrereqSelected = new Set(course.prerequisites || []);
+  renderPrereqChips();
+
+  modal.classList.remove('hidden');
 }
 
 function closeDeleteModal() {
@@ -892,10 +995,18 @@ function openAdminModal() {
   }
   const modal = document.getElementById('admin-modal');
   const form = document.getElementById('admin-form');
+  const titleEl = document.querySelector('.admin-modal-title');
+  const subtitleEl = document.querySelector('.admin-modal-subtitle');
+  const submitBtn = document.querySelector('.admin-submit');
   if (!modal || !form) return;
+  adminPrereqSelected = new Set();
+  renderPrereqChips();
   form.reset();
   const typeSelect = form.querySelector('#admin-type');
   if (typeSelect) typeSelect.value = 'Presencial';
+  if (titleEl) titleEl.textContent = 'Cadastrar Novo Evento';
+  if (subtitleEl) subtitleEl.textContent = 'Preencha os dados abaixo para publicar um evento no portal.';
+  if (submitBtn) submitBtn.textContent = 'Cadastrar Evento';
   modal.classList.remove('hidden');
 }
 
@@ -1086,6 +1197,7 @@ function handleAdminForm() {
   if (!form) return;
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    const audienceSelect = document.querySelector('input[name="admin-audience"]:checked');
     const title = (document.getElementById('admin-title')?.value || '').trim();
     const category =
       (document.getElementById('admin-category')?.value || '').trim();
@@ -1097,8 +1209,8 @@ function handleAdminForm() {
       (document.getElementById('admin-location')?.value || '').trim();
     const type = document.getElementById('admin-type')?.value || 'Presencial';
     const hours = (document.getElementById('admin-hours')?.value || '').trim();
-    const prereqRaw =
-      (document.getElementById('admin-prereq')?.value || '').trim();
+    const prereqChecks = Array.from(adminPrereqSelected);
+    const audience = audienceSelect ? (audienceSelect.value || '').trim() : 'todos';
 
     if (!title || !category || !description || !date || !time || !location || !hours) {
       alert('Preencha todos os campos obrigatórios.');
@@ -1116,16 +1228,27 @@ function handleAdminForm() {
       type,
       typeClass: mapTypeClass(type),
       hours,
-      prerequisites: prereqRaw
-        ? prereqRaw.split(',').map((p) => p.trim()).filter(Boolean)
-        : [],
+      prerequisites: prereqChecks,
+      audience,
       enrolled: false,
     };
-    coursesData.unshift(newCourse);
-    saveCourses();
-    renderCourses();
-    closeAdminModal();
-    alert('Evento criado e publicado.');
+    if (editCourseId) {
+      const idx = coursesData.findIndex((c) => c.id === editCourseId);
+      if (idx !== -1) {
+        coursesData[idx] = { ...coursesData[idx], ...newCourse, id: editCourseId };
+      }
+      saveCourses();
+      renderCourses();
+      renderMyCourses();
+      closeAdminModal();
+      alert('Evento atualizado.');
+    } else {
+      coursesData.unshift(newCourse);
+      saveCourses();
+      renderCourses();
+      closeAdminModal();
+      alert('Evento criado e publicado.');
+    }
   });
 }
 
@@ -1177,6 +1300,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSignupForm();
   handleEnrollmentForm();
   handleAdminForm();
+  initPrereqSelect();
   initProfilePage();
   if (window.location.hash === '#minhas-inscricoes' && document.getElementById('tab-my-courses')) {
     switchTab('my-courses');

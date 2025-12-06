@@ -223,22 +223,40 @@
                             <label for="admin-category">Categoria</label>
                             <select id="admin-category" class="admin-input" required>
                                 <option value="">Selecione</option>
-                                <option>Tecnologia</option>
-                                <option>Saúde</option>
-                                <option>Educação</option>
-                                <option>Artes</option>
-                                <option>Ciências</option>
-                                <option>Gestão</option>
-                                <option>Idiomas</option>
+                                <option value="tecnologia">Tecnologia</option>
+                                <option value="saude">Saúde</option>
+                                <option value="educacao">Educação</option>
+                                <option value="artes">Artes</option>
+                                <option value="ciencias">Ciências</option>
+                                <option value="gestao">Gestão</option>
+                                <option value="idiomas">Idiomas</option>
                             </select>
                         </div>
                         <div class="admin-field">
                             <label for="admin-type">Formato</label>
                             <select id="admin-type" class="admin-input" required>
                                 <option value="Presencial">Presencial</option>
-                                <option value="Remoto">Online</option>
+                                <option value="Online">Online</option>
                                 <option value="Híbrido">Híbrido</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="admin-field">
+                        <span class="admin-label">Público-alvo</span>
+                        <div class="admin-radio-group" role="radiogroup" aria-label="Público-alvo">
+                            <label class="admin-radio">
+                                <input type="radio" name="admin-audience" value="todos" checked>
+                                <span>Todos</span>
+                            </label>
+                            <label class="admin-radio">
+                                <input type="radio" name="admin-audience" value="estudantes">
+                                <span>Estudantes</span>
+                            </label>
+                            <label class="admin-radio">
+                                <input type="radio" name="admin-audience" value="servidores">
+                                <span>Servidores</span>
+                            </label>
                         </div>
                     </div>
 
@@ -270,8 +288,19 @@
                     </div>
 
                     <div class="admin-field">
-                        <label for="admin-prereq">Pré-requisitos (opcional)</label>
-                        <textarea id="admin-prereq" class="admin-input" rows="2" placeholder="Separe por vírgula, ex: Lógica, Estatística"></textarea>
+                        <span class="admin-label">Pré-requisitos (opcional)</span>
+                        <select id="admin-prereq-select" class="admin-input" aria-label="Selecione pré-requisitos">
+                            <option value="">Selecione ou adicione</option>
+                            <option value="Mínimo 2º período">Mínimo 2º período</option>
+                            <option value="Conhecimento em Java">Conhecimento em Java</option>
+                            <option value="Algoritmos e Estruturas de Dados">Algoritmos e Estruturas de Dados</option>
+                            <option value="Banco de Dados básico">Banco de Dados básico</option>
+                            <option value="Inglês técnico">Inglês técnico</option>
+                            <option value="Experiência em pesquisa">Experiência em pesquisa</option>
+                            <option value="Disponibilidade noturna">Disponibilidade noturna</option>
+                        </select>
+                        <div class="admin-chip-group" id="admin-prereq-chips" role="group" aria-label="Pré-requisitos selecionados"></div>
+                        <small class="admin-helper">Selecione quantos quiser. Clique no “×” para remover.</small>
                     </div>
 
                     <div class="admin-actions-row">

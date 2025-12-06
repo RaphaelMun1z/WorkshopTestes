@@ -999,6 +999,18 @@ body.app-body {
   letter-spacing: 0.01em;
 }
 
+.admin-label {
+  display: inline-block;
+  font-weight: 700;
+  color: var(--gray-700);
+}
+
+.admin-helper {
+  display: block;
+  color: var(--gray-500);
+  font-size: 0.9rem;
+}
+
 .admin-input {
   width: 100%;
   padding: 0.8rem 0.95rem;
@@ -1024,6 +1036,80 @@ body.app-body {
 .admin-input,
 .admin-input::placeholder {
   color: var(--gray-600);
+}
+
+.admin-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  font-weight: 600;
+  color: var(--slate-800);
+}
+
+.admin-radio input {
+  accent-color: var(--uni-600);
+}
+
+.admin-radio:hover {
+  border-color: var(--uni-500);
+  background: var(--gray-50);
+  box-shadow: 0 4px 10px rgba(14, 165, 233, 0.08);
+}
+
+.admin-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.6rem 0 0.4rem 0;
+}
+
+.admin-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  font-weight: 600;
+  color: var(--slate-800);
+}
+
+.admin-chip:hover {
+  border-color: var(--uni-500);
+  background: var(--gray-50);
+  box-shadow: 0 4px 10px rgba(14, 165, 233, 0.08);
+}
+
+.chip-remove {
+  border: none;
+  background: transparent;
+  color: var(--gray-500);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.chip-remove:hover {
+  color: var(--red-600, #dc2626);
 }
 
 .admin-grid-2 {
@@ -1480,6 +1566,12 @@ body.app-body {
   gap: 8px;
 }
 
+.card-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .card-icon-btn {
   border: 1px solid var(--gray-200);
   background: #fff;
@@ -1496,6 +1588,10 @@ body.app-body {
   width: 16px;
   height: 16px;
   color: #e11d48;
+}
+
+.card-icon-btn.card-edit-btn svg {
+  color: var(--nav-end);
 }
 
 .card-icon-btn:hover {
