@@ -112,11 +112,12 @@ describe('Teste de Elementos Básicos', () => {
             cy.get('#admin-category').select('Tecnologia')
             .should('have.value', 'Tecnologia');
             
-            
             cy.wait(1000);
             cy.get('#admin-type').select('Online')
             .should('have.value', 'Remoto');
             
+            cy.get('#mult-select')
+            .select(['Segundo período', 'Conhecimento em Java']);
         });
     });
 });
