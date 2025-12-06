@@ -409,7 +409,7 @@ function renderCourses() {
       </div>
 
       <div class="course-actions">
-        <button onclick="openDetails(${course.id})" class="btn btn-secondary">
+        <button onclick="openDetails(${course.id})" class="btn btn-secondary" id="btn-more-info">
             Saiba Mais
         </button>
         ${
