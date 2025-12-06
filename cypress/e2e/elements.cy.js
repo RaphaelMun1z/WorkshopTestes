@@ -89,7 +89,7 @@ describe('Teste de Elementos Básicos', () => {
         
     });
     
-    context.only('Deve realizar login como Administrador e criar um novo evento', () => {
+    context('Deve realizar login como Administrador e criar um novo evento', () => {
         beforeEach(() => {
             cy.visit('login.html');
             console.log("Visitei a página de login");
@@ -118,6 +118,34 @@ describe('Teste de Elementos Básicos', () => {
             
             cy.get('#mult-select')
             .select(['Segundo período', 'Conhecimento em Java']);
+        });
+        
+        it('Deve aguardar o elemento estar disponível antes de interagir', () => {
+            cy.get('#password').should('be.visible').click();
+        });
+        
+        it('Deve fazer retrys até o elemento estar disponível', () => {
+            cy.get('#password').should('exist').type('teste123'); 
+        });
+        
+        it("Uso do timeout", () => {
+            cy.get('#password', { timeout: 2000 }).should('exist').click();
+        });
+    });
+    
+    context.only('Should vs Then', () => {
+        it('Deve demonstrar a diferença entre should e then', () => {
+            cy.visit('index.html');
+            
+            // Uso do then (síncrono, encadeado)
+            cy.get('.section-title').then(($el) => {
+                expect($el).to.have.text('Atividades Complementares');
+            });
+            
+            // Uso do should (assíncrono, reativo)
+            cy.get('.section-title').should(($el) => {
+                expect($el).to.have.text('Atividades Complementares');
+            });
         });
     });
 });
