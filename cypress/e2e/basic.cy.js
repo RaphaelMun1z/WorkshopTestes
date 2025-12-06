@@ -26,8 +26,10 @@ describe('Suite de Testes: Portal de Extensão', () => {
         // Deve ser removido ou comentado antes de subir o código.
         // cy.title().debug(); 
         
+        let syncTitle;
         cy.title().then(title => {
-            console.log('Título da página:', title);
+            syncTitle = title;
+            console.log('Título da página:', syncTitle);
         });
         
         cy.title().should(title => {

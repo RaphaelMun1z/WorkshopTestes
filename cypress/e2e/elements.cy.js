@@ -61,7 +61,6 @@ describe('Teste de Elementos Básicos', () => {
             console.log("Visitei a página de login");
         });
         
-        // CORREÇÃO: Removido o .only para que os outros testes voltem a rodar
         it('Deve preencher os campos de email e senha corretamente', () => {
             
             // Valida estado inicial (vazio)
@@ -120,6 +119,58 @@ describe('Teste de Elementos Básicos', () => {
             .select(['Segundo período', 'Conhecimento em Java']);
         });
         
+        it.only('Deve criar um novo evento', () => {
+            cy.get('#email')
+            .type('admin@ufu.br');
+            
+            cy.get('#password')
+            .type('admin123');
+            
+            cy.wait(500);
+            cy.get('.btn-submit').click();
+            
+            cy.wait(500);
+            cy.get('.admin-btn').click();
+            
+            // Select simples
+            cy.wait(500);
+            cy.get('#admin-category')
+            .select('Tecnologia')
+            .should('have.value', 'tecnologia');
+            
+            cy.wait(500);
+            cy.get('#admin-type')
+            .select('Online')
+            .should('have.value', 'Online');
+            
+            // Select múltiplo
+            cy.get('#admin-prereq-select option').should('have.length', 8);
+            
+            cy.get('#admin-prereq-select option').then($arr => {
+                const values = [];
+                $arr.each(function(){
+                    values.push(this.innerHTML);
+                });
+                expect(values).to.include.members(["Selecione ou adicione","Mínimo 2º período","Conhecimento em Java","Algoritmos e Estruturas de Dados","Banco de Dados básico","Inglês técnico","Experiência em pesquisa","Disponibilidade noturna"]);
+            });
+            
+            cy.get('#admin-prereq-select').select('Mínimo 2º período');
+            cy.get('#admin-prereq-select').select('Conhecimento em Java');
+            
+            cy.get('#admin-prereq-chips .admin-chip').should('have.length', 2);
+
+            cy.get('#admin-prereq-chips .admin-chip').then($chips => {
+                const chipTexts = $chips.map((index, htmlElement) => {
+                    return Cypress.$(htmlElement).text().replace('×', '').trim();
+                }).get();
+                
+                expect(chipTexts).to.have.members([
+                    'Mínimo 2º período',
+                    'Conhecimento em Java'
+                ]);
+            });
+        });
+        
         it('Deve aguardar o elemento estar disponível antes de interagir', () => {
             cy.get('#password').should('be.visible').click();
         });
@@ -133,7 +184,7 @@ describe('Teste de Elementos Básicos', () => {
         });
     });
     
-    context.only('Should vs Then', () => {
+    context('Should vs Then', () => {
         it('Deve demonstrar a diferença entre should e then', () => {
             cy.visit('index.html');
             
