@@ -47,7 +47,10 @@ describe('Helper Functions', () => {
         
         cy.visit('login.html');
         cy.get('#email').invoke('val', 'Teste invoke');
-
+        
         cy.window().invoke('alert', 'Alert via invoke');
+        cy.on('window:alert', msg => {
+            expect(msg).to.be.equal('Alert via invoke');
+        });
     });
 });
