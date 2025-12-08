@@ -1,0 +1,55 @@
+Validação: Título Exato
+Sintaxe: cy.title().should('be.equal', 'Título Completo')
+Exemplo do Teste: cy.title().should('be.equal', 'Portal Aluno - Login');
+
+Validação: Título Contém
+Sintaxe: cy.title().and('contain', 'parte_do_texto')
+Exemplo do Teste: cy.title().and('contain', 'Login');
+
+Validação: Ter Valor Exato (Preenchimento)
+Sintaxe: .should('have.value', 'valor_esperado')
+Exemplo do Teste: cy.get('#email').should('have.value', 'admin@ufu.br');
+
+Validação: Ter Valor Vazio (Estado Inicial)
+Sintaxe: .should('have.value', '')
+Exemplo do Teste: cy.get('#email').should('have.value', '');
+
+Validação: Ter Atributo e Valor Específicos
+Sintaxe: .should('have.attr', 'nome_atributo', 'valor_esperado')
+Exemplo do Teste: cy.get('#email').should('have.attr', 'placeholder', 'nome.sobrenome@ufu.br');
+
+Validação: Encadeamento de Atributos
+Sintaxe: .and('have.attr', 'nome_atributo', 'valor_esperado')
+Exemplo do Teste: cy.get('#email').and('have.attr', 'type', 'email');
+
+Comando: Acessar URL
+Sintaxe: cy.visit('caminho_da_pagina.html')
+Exemplo Genérico: cy.visit('cadastro.html')
+
+Comando: Localizar Elemento
+Sintaxe: cy.get('seletor_css')
+Exemplo Genérico: cy.get('#campo-nome')
+
+Comando: Digitar Texto
+Sintaxe: .type('texto_a_digitar')
+Exemplo Genérico: cy.get('#campo-nome').type('Fulano de Tal')
+
+Comando: Clicar em Elemento
+Sintaxe: .click()
+Exemplo Genérico: cy.get('.btn-enviar').click()
+
+Comando: Selecionar Opção (Dropdown)
+Sintaxe: .select('valor_da_opcao')
+Exemplo Genérico: cy.get('#dropdown-cidades').select('Belo Horizonte')
+
+Comando: Marcar (Radio ou Checkbox)
+Sintaxe: .check()
+Exemplo Genérico: cy.get('[value="opcao-premium"]').check()
+
+Comando: Pausar Teste
+Sintaxe: cy.wait(milissegundos)
+Exemplo Genérico: cy.wait(1500)
+
+Comando: Obter URL Atual
+Sintaxe: cy.url().should('asserção')
+Exemplo Genérico: cy.url().should('include', '/dashboard')

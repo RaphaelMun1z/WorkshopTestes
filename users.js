@@ -3,7 +3,7 @@ window.USERS_SEED = [
     id: 1,
     name: 'Administrador',
     email: 'admin@ufu.br',
-    password: 'admin123',
+    password: 'tms-melhor-disciplina',
     role: 'admin',
     phone: '(34) 0000-0000',
     department: 'Diretoria de Extensão e Cultura (DIRC)',
