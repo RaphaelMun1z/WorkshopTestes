@@ -77,6 +77,8 @@ describe('Teste Cypress', () => {
         
         // Validação da navegação para 'index'
         cy.url().should('include', '/index.html');
+
+        cy.wait(1000);
         
         // VALIDAÇÃO: Verifica se o botão "Novo Evento" está visível (apenas Admin)
         cy.get('.admin-btn').should('be.visible').click();
