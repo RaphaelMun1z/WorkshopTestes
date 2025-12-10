@@ -321,6 +321,7 @@ function renderPrereqChips() {
 function initPrereqSelect() {
 	const select = document.getElementById('admin-prereq-select');
 	if (!select) return;
+	select.value = '';
 	select.addEventListener('change', () => {
 		const val = select.value;
 		if (!val) return;
@@ -330,6 +331,7 @@ function initPrereqSelect() {
 			adminPrereqSelected.add(val);
 		}
 		renderPrereqChips();
+		select.value = '';
 	});
 }
 
