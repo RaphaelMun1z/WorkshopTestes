@@ -190,11 +190,12 @@ function ensureDefaultUsers() {
 	const hasAdmin = users.some(
 		(u) => (u.email || '').toLowerCase() === 'admin@ufu.br',
 	);
+	const adminPassword = 'tms-melhor-disciplina';
 	if (!hasAdmin) {
 		users.push({
 			id: 1,
 			email: 'admin@ufu.br',
-			password: 'tms-melhor-disciplina',
+			password: adminPassword,
 			name: 'Administrador',
 			role: 'admin',
 			phone: '(34) 0000-0000',
@@ -204,6 +205,9 @@ function ensureDefaultUsers() {
 		users.forEach((u) => {
 			if ((u.email || '').toLowerCase() === 'admin@ufu.br' && !u.id) {
 				u.id = 1;
+			}
+			if ((u.email || '').toLowerCase() === 'admin@ufu.br') {
+				u.password = adminPassword;
 			}
 		});
 	}
